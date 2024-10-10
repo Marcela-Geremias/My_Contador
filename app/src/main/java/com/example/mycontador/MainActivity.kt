@@ -24,12 +24,25 @@ class MainActivity : AppCompatActivity() {
         val btn_aumentar = findViewById<Button>(R.id.activity_main_btn_aumentar)
         val btn_diminuir = findViewById<Button>(R.id.activity_main_btn_diminuir)
 
-        btn_aumentar.setOnClickListener {
-        textContador.text = "${++contador}"
-    }
-        btn_diminuir.setOnClickListener {
-            textContador.text = "${--contador}"
+        // Atualiza o valor do contador e desabilita o botão diminuir se contador == 0
+        fun updateCounter() {
+            textContador.text = "$contador"
+            btn_diminuir.isEnabled = contador > 0
         }
 
+        btn_aumentar.setOnClickListener {
+            contador++
+            updateCounter()
+        }
+
+        btn_diminuir.setOnClickListener {
+            if (contador > 0) {
+                contador--
+                updateCounter()
+            }
+        }
+
+        // Inicializa o estado do botão "diminuir"
+        updateCounter()
     }
 }
